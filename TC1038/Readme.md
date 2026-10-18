@@ -1,6 +1,6 @@
 # Contenido de los laboratorios
 
-| Laboratorio | Descripción |
+| Laboratory | Description |
 | ----------- | ----------- |
 | Semana 4 | Ejercicios que usan estatutos de decisión anidados (Python) |
 | Semana 4 | Ejercicios que usan estatutos de decisión anidados (PSeInt) |
