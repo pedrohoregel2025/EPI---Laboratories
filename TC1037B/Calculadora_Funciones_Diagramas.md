@@ -1,4 +1,4 @@
-# TC1038 — Pensamiento Computacional
+# TC1037 — Pensamiento Computacional
 
 ## Actividad: Calculadora con funciones, validaciones y diagramas de flujo
 
@@ -18,15 +18,15 @@
 
 ### Diagrama 1. Programa principal
 
-![Diagrama principal: lectura, validación del intervalo, menú y selección](TC1038_Operaciones_Diagramas/01_flujo_principal.png)
+![Diagrama principal: lectura, validación del intervalo, menú y selección](Operaciones_Diagramas/01_flujo_principal.png)
 
 ### Diagrama 2. Selección de operación y llamadas a funciones
 
-![Diagrama de operaciones: sumar, restar, multiplicar y dividir con protección ante cero](TC1038_Operaciones_Diagramas/02_flujo_operaciones.png)
+![Diagrama de operaciones: sumar, restar, multiplicar y dividir con protección ante cero](Operaciones_Diagramas/02_flujo_operaciones.png)
 
 ### Diagrama 3. Función de validación del intervalo
 
-![Diagrama de la función EnRango](TC1038_Operaciones_Diagramas/03_funcion_validacion.png)
+![Diagrama de la función EnRango](Operaciones_Diagramas/03_funcion_validacion.png)
 
 **Nota:** en el diagrama 2, la opción ya fue validada por el programa principal. Por tanto, si no es 1, 2 ni 3, necesariamente es 4.
 

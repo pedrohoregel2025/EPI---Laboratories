@@ -5,5 +5,6 @@
 | Semana 3 | Ejercicios que usan funciones (Calculadora con funciones) |
 | Semana 4 | Ejercicios que usan estatutos de decisión anidados (Python) |
 | Semana 4 | Ejercicios que usan estatutos de decisión anidados (PSeInt) |
+| Semana 5 | Ejercicios que usan estatutos de decisión anidados
 | Examen 1 | Examen teórico correspondiente al Pimer Parcial |
 | Situación Problema | Ejemplo de Situación Problema elaborada en la UF TC1002B (Reto_Final.ipynb)|
