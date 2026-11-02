@@ -1,0 +1,10 @@
+TC1037B — Semana 7
+
+Descomprime todo el ZIP en una carpeta. Abre W7 - Ciclo_For_Explicación.md con Marp (por ejemplo Marp for VS Code). Conserva imagenes/ junto al Markdown.
+
+Exportación opcional con Marp CLI instalado:
+marp "W7 - Ciclo_For_Explicación.md" --pdf --allow-local-files
+
+Python: 5 pruebas de tabla y 4 de promedio aprobadas; sintaxis compilada. PSeInt: revisión documental, sin ejecución. No se realizó renderizado con Marp CLI en esta sesión.
+
+Este paquete no se ha publicado en GitHub.
