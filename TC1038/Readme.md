@@ -15,3 +15,5 @@
 | Semana 11 | Apunte de metodos de cadena de carcateres |
 | Semana 12 | Apunte de métodos de listas |
 | Semana 12 | Ejercicios de métodos de listas |
+| Semana 13 | Matrices (Ejemplo de sumatoria de fila y columna) |
+| Semana 13 | Matrices (Ejemplo de sopa de letras)|
