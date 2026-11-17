@@ -2,37 +2,37 @@
 
 **Actividad académica resuelta · Análisis EPS, diagrama de flujo, ecuaciones y código Python comentado**
 
-> **Fuentes empleadas exclusivamente:** (1) *Modelado del movimiento de un cohete de agua: ecuaciones, simulación numérica y código Python*, M.C. Rafael Díaz Mondragón, 17 de noviembre de 2026, PDF adjunto (5 páginas); (2) *Modelado del movimiento de un cohete de agua*, presentación de clase adjunta, especialmente diapositivas 3, 4, 17–25 y 27. Las conversiones de unidades, la técnica de integración elegida y los valores no especificados se identifican como decisiones necesarias de implementación, **no como datos medidos**.
+> **Fuentes empleadas exclusivamente:** (1) *Modelado del movimiento de un cohete de agua: ecuaciones, simulación numérica y código Python*, M.C. Rafael Díaz Mondragón, 17 de noviembre de 2026, P[...]
 
 ## 1. Objetivo de la actividad
 
-En equipos, diseñar un algoritmo y programar en Python una simulación del movimiento vertical de un cohete de agua: despega impulsado por la expulsión del agua, asciende hasta alcanzar su altura máxima y desciende hasta el suelo. Usar el modelo de masa variable durante el empuje y considerar gravedad y resistencia aerodinámica durante todo el vuelo. Comparar los resultados con un video de lanzamiento y elaborar un reporte.
+En equipos, diseñar un algoritmo y programar en Python una simulación del movimiento vertical de un cohete de agua: despega impulsado por la expulsión del agua, asciende hasta alcanzar su altura m�[...]
 
-**Productos solicitados:** diagrama de flujo, programa comentado, cuatro gráficas (altura, velocidad, masa y presión vs. tiempo), y seis indicadores: altura máxima, tiempo total, velocidad máxima, masa inicial de agua, masa final de agua y duración del empuje.
+**Productos solicitados:** diagrama de flujo, programa comentado, cuatro gráficas (altura, velocidad, masa y presión vs. tiempo), y seis indicadores: altura máxima, tiempo total, velocidad máxima,[...]
 
 ## 2. Análisis EPS — Entrada, Proceso y Salida
 
 | Elemento | Descripción |
 |---|---|
-| **Entrada** | Presión inicial manométrica en psi; presión atmosférica local en Pa; masas de agua y botella en kg; volumen total en m³; densidades del agua y aire en kg/m³; exponente adiabático γ; áreas de boquilla y frontal en m² (calculadas a partir de diámetros); coeficiente de arrastre; gravedad y paso de integración Δt. |
-| **Proceso** | Convertir presión manométrica a absoluta, validar parámetros, inicializar estado `(t, h, v, m_agua)`, calcular presión adiabática, velocidad de expulsión, flujo de agua, empuje y arrastre; integrar ecuaciones diferenciales paso a paso; terminar cuando el cohete regrese al suelo. |
+| **Entrada** | Presión inicial manométrica en psi; presión atmosférica local en Pa; masas de agua y botella en kg; volumen total en m³; densidades del agua y aire en kg/m³; exponente adiabátic[...] |
+| **Proceso** | Convertir presión manométrica a absoluta, validar parámetros, inicializar estado `(t, h, v, m_agua)`, calcular presión adiabática, velocidad de expulsión, flujo de agua, empuje y[...] |
 | **Salida** | Resultados numéricos, series de tiempo y gráficas de altura, velocidad, masa total y presión interna absoluta. |
 
 ## 3. Etapas físicas del vuelo
 
-**Fase A. Empuje por agua.** El aire comprimido expulsa agua por la boquilla. El agua restante disminuye; también disminuye la masa total del cohete. El volumen de aire se expande, la presión decae y el empuje cambia con el tiempo. Se aplican Bernoulli, conservación de cantidad de movimiento y la segunda ley de Newton (PDF, pp. 2–4; presentación, diapositivas 3 y 12–24).
+**Fase A. Empuje por agua.** El aire comprimido expulsa agua por la boquilla. El agua restante disminuye; también disminuye la masa total del cohete. El volumen de aire se expande, la presión decae [...]
 
 **Fase B. Ascenso sin empuje.** Después de agotarse el agua, se toma masa constante y empuje nulo. La gravedad y el arrastre frenan el ascenso hasta que `v = 0`, instante de altura máxima.
 
 **Fase C. Descenso.** La velocidad se vuelve negativa; la gravedad acelera la caída y el arrastre se opone al movimiento hasta que `h ≤ 0` (aterrizaje).
 
-**Simplificación adoptada:** la fase breve de empuje residual por aire, reconocida como opcional en ambas fuentes, **no se modela**. Tampoco se modelan inclinación, viento, estabilidad, rebotes ni movimientos horizontales. El informe se refiere a una trayectoria estrictamente vertical.
+**Simplificación adoptada:** la fase breve de empuje residual por aire, reconocida como opcional en ambas fuentes, **no se modela**. Tampoco se modelan inclinación, viento, estabilidad, rebotes ni m[...]
 
 ## 4. Diagrama de flujo simplificado
 
 ![Diagrama de flujo del cohete de agua](recursos/00_diagrama_flujo.png)
 
-La figura conserva siete bloques: **Inicio → Leer parámetros → Inicializar variables → Calcular fuerzas y actualizar → ¿Llegó al suelo? → Mostrar resultados y gráficas → Fin**. Ante respuesta negativa en la decisión, se repite el cálculo. En la práctica, la condición de aterrizaje se comprueba después de avanzar el tiempo: `h <= 0` con `t > 0`.
+La figura conserva siete bloques: **Inicio → Leer parámetros → Inicializar variables → Calcular fuerzas y actualizar → ¿Llegó al suelo? → Mostrar resultados y gráficas → Fin**. Ante re[...]
 
 ### Interpretación del bloque de cálculo
 
@@ -48,28 +48,28 @@ Tomamos **hacia arriba como positivo**. Estas ecuaciones sintetizan el PDF de re
 
 ### 5.1 Masa total variable
 
-\[
+$$
 m(t) = m_{\mathrm{botella}} + m_{\mathrm{agua}}(t)
-\]
+$$
 
 Se desprecia la masa del aire, como establece el modelo de referencia.
 
 ### 5.2 Volumen de aire y presión adiabática
 
-\[
+$$
 V_a(t)=V_{\mathrm{total}}-\frac{m_{\mathrm{agua}}(t)}{\rho_{\mathrm{agua}}}
-\]
+$$
 
-\[
+$$
 P_{\mathrm{abs}}(t)=P_{0,\mathrm{abs}}\left(\frac{V_a(0)}{V_a(t)}\right)^\gamma
-\]
+$$
 
 **Distinción esencial:** la presión inicial anunciada en el PDF es **manométrica** (60 psi), mientras que la ley adiabática debe calcularse con **presión absoluta**. Por tanto:
 
-\[
+$$
 P_{0,\mathrm{abs}}=P_{\mathrm{atm}}+P_{0,\mathrm{man}};\qquad
 P_{0,\mathrm{man}}[\mathrm{Pa}]=60\times6894.757293168
-\]
+$$
 
 El factor psi→Pa es una conversión de unidades indispensable para ejecutar el modelo; no se trata de una medición atmosférica.
 
@@ -77,30 +77,30 @@ El factor psi→Pa es una conversión de unidades indispensable para ejecutar el
 
 Cuando `m_agua > 0` y `P_abs > P_atm`:
 
-\[
+$$
 v_e=\sqrt{\frac{2(P_{\mathrm{abs}}-P_{\mathrm{atm}})}{\rho_{\mathrm{agua}}}},\quad
 \dot m_{\mathrm{salida}}=\rho_{\mathrm{agua}}A_e v_e
-\]
+$$
 
-\[
+$$
 F_{\mathrm{empuje}}=\dot m_{\mathrm{salida}}v_e=2A_e(P_{\mathrm{abs}}-P_{\mathrm{atm}})
-\]
+$$
 
-\[
+$$
 \frac{dm_{\mathrm{agua}}}{dt}=-\dot m_{\mathrm{salida}}
-\]
+$$
 
 Aquí `A_e` es el área de la boquilla. Cuando se acaba el agua, el empuje del modelo simplificado pasa a cero.
 
 ### 5.4 Peso, arrastre y aceleración
 
-\[
+$$
 F_{\mathrm{arrastre,con\ signo}}=\frac12 C_d\rho_{\mathrm{aire}} A_f v|v|
-\]
+$$
 
-\[
+$$
 a=\frac{F_{\mathrm{empuje}}-m(t)g-F_{\mathrm{arrastre,con\ signo}}}{m(t)}
-\]
+$$
 
 El producto `v |v|` hace que la fuerza de arrastre cambie correctamente de signo al pasar del ascenso al descenso. Sin empuje, la ecuación equivale a la fase de vuelo libre del PDF (p. 4).
 
@@ -108,14 +108,14 @@ El producto `v |v|` hace que la fuerza de arrastre cambie correctamente de signo
 
 Las variables de estado son `h`, `v`, `m_agua`. El programa utiliza **Euler semiimplícito** (decisión de implementación para convertir las ecuaciones diferenciales de las fuentes a código):
 
-\[
+$$
 v_{n+1}=v_n+a_n\Delta t,\qquad
 h_{n+1}=h_n+v_{n+1}\Delta t
-\]
+$$
 
-\[
+$$
 m_{\mathrm{agua},n+1}=\max(0,m_{\mathrm{agua},n}-\dot m_{\mathrm{salida},n}\Delta t)
-\]
+$$
 
 El límite `max(0, …)` impide una masa de agua negativa por discretización. Se recomienda ensayar un `Δt` menor y comparar resultados para revisar la sensibilidad numérica.
 
@@ -137,11 +137,11 @@ El límite `max(0, …)` impide una masa de agua negativa por discretización. S
 | Coeficiente de arrastre | 0.50 | Ejemplo dentro del rango 0.3–0.8 indicado en PDF, p. 3 |
 | Δt | 0.0005 s | Elección numérica para el ejemplo |
 
-Las áreas se obtienen con `A = π(d/2)²`. Para realizar la comparación con el video es indispensable reemplazar todos los supuestos por medidas o estimaciones justificadas del prototipo real. La presión atmosférica y la densidad local no deben presentarse como medidas de Toluca mientras no se registren.
+Las áreas se obtienen con `A = π(d/2)²`. Para realizar la comparación con el video es indispensable reemplazar todos los supuestos por medidas o estimaciones justificadas del prototipo real. La pr[...]
 
 ## 7. Código Python completo y comentado
 
-**Requisitos:** Python 3 y la biblioteca `matplotlib`. El archivo `simulacion_cohete.py` incluido en el paquete contiene este mismo código. El programa genera los cuatro archivos PNG en la carpeta `recursos/`.
+**Requisitos:** Python 3 y la biblioteca `matplotlib`. El archivo `simulacion_cohete.py` incluido en el paquete contiene este mismo código. El programa genera los cuatro archivos PNG en la carpeta `r[...]
 
 ```python
 """TC1038: modelo didáctico vertical de cohete de agua.
@@ -324,7 +324,7 @@ Masa final de agua: 0.000000 kg
 Duración del empuje: 0.388 s
 ```
 
-**Importante:** los indicadores **no son predicciones validadas del lanzamiento**. Por ejemplo, la diapositiva 27 de la presentación proporciona para *su* simulación: altura máxima **44.67 m**, tiempo de vuelo **7.14 s**, velocidad máxima **42.14 m/s**, masa inicial de agua **0.60 kg**, masa final **0 kg** y duración del empuje **1.254 s**. No debe suponerse igualdad porque no se han documentado en este archivo todas las dimensiones y condiciones numéricas empleadas en aquella corrida. El conjunto de parámetros usado aquí es distinto y está identificado.
+**Importante:** los indicadores **no son predicciones validadas del lanzamiento**. Por ejemplo, la diapositiva 27 de la presentación proporciona para *su* simulación: altura máxima **44.67 m**, tie[...]
 
 ### Gráficas generadas
 
@@ -344,9 +344,9 @@ Duración del empuje: 0.388 s
 
 ![Presión interna absoluta en función del tiempo](recursos/04_presion.png)
 
-**Lectura física de las gráficas:** la altura aumenta y luego retorna a cero; la velocidad es positiva en el ascenso, pasa por cero en el máximo y se vuelve negativa en el descenso; la masa total desciende durante la expulsión de agua y queda constante; la presión adiabática disminuye mientras el aire se expande.
+**Lectura física de las gráficas:** la altura aumenta y luego retorna a cero; la velocidad es positiva en el ascenso, pasa por cero en el máximo y se vuelve negativa en el descenso; la masa total d[...]
 
-**Precisión respecto a la presión:** en esta versión se grafica la **presión interna absoluta calculada**. Una vez agotada el agua, el código conserva el valor residual de la presión de acuerdo con la relación adiabática, pero **no simula** el vaciado posterior del aire; por ello, la curva es horizontal en vuelo libre. No debe interpretarse como una medición real de presión durante todo el vuelo. El PDF presenta la evolución del empuje y presión y también deja explícita la omisión del empuje residual por aire (pp. 2 y 5).
+**Precisión respecto a la presión:** en esta versión se grafica la **presión interna absoluta calculada**. Una vez agotada el agua, el código conserva el valor residual de la presión de acuerdo [...]
 
 ## 9. Pruebas de escritorio y comprobaciones
 
@@ -365,7 +365,7 @@ Duración del empuje: 0.388 s
 - **Modelo físico:** 1D, sin viento y sin empuje residual por aire; se desprecia la masa de aire. Son simplificaciones adoptadas a partir de las fuentes.
 - **Discretización:** usar menor `Δt` y comparar métricas; el tiempo y la altura exactos de aterrizaje tienen error del tamaño del paso (no se interpola el cruce por el suelo).
 - **Presión absoluta y manométrica:** no intercambiar sus valores en las ecuaciones.
-- **Seguridad experimental:** el PDF advierte que 60 psi puede ser alto para una botella PET típica y que debe comprobarse la resistencia del recipiente (p. 5). La simulación no acredita la seguridad de un lanzamiento.
+- **Seguridad experimental:** el PDF advierte que 60 psi puede ser alto para una botella PET típica y que debe comprobarse la resistencia del recipiente (p. 5). La simulación no acredita la segurida[...]
 
 ## 10. Actividad para equipos: trabajo y entrega
 
@@ -376,7 +376,7 @@ Duración del empuje: 0.388 s
 5. **Comparar** altura máxima y tiempo total con lo observado en la grabación; documentar discrepancias.
 6. **Entregar** código comentado, tablas de parámetros, cuatro gráficas y reporte técnico con los seis indicadores.
 
-**Preguntas de análisis:** ¿Por qué disminuye la masa durante el empuje? ¿Qué variable cambia el signo del arrastre? ¿Qué implica usar presión manométrica en lugar de absoluta en la expansión adiabática? ¿Por qué la altura máxima no coincide con la desaparición del empuje? ¿Qué ocurre al elegir un paso `Δt` demasiado grande?
+**Preguntas de análisis:** ¿Por qué disminuye la masa durante el empuje? ¿Qué variable cambia el signo del arrastre? ¿Qué implica usar presión manométrica en lugar de absoluta en la expansió[...]
 
 ## 11. Referencias utilizadas
 
