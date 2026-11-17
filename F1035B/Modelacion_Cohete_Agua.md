@@ -1,4 +1,4 @@
-# TC1038 — Modelación vertical de un cohete de agua
+# F1025B — Modelación vertical de un cohete de agua
 
 **Actividad académica resuelta · Análisis EPS, diagrama de flujo, ecuaciones y código Python comentado**
 
