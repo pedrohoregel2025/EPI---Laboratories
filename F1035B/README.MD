@@ -9,3 +9,4 @@
 | Semana 3.2 | Captura y análisis de movimiento en Tracker |
 | Semana 4.1 | Vectores de velocidad instantánea en varios puntos |
 | Semana 4.2 | Determinar el coeficiente de fricción estático y dinámico |
+| Semana 7 | Modelación de cohete |
